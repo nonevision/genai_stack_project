@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY front-end/ .
 
+COPY .npmrc .
 RUN npm install
 
 EXPOSE 8505
