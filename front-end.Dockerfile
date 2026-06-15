@@ -5,7 +5,7 @@ WORKDIR /app
 COPY front-end/ .
 
 COPY .npmrc .
-RUN npm install
+RUN npm ci
 
 EXPOSE 8505
 
