@@ -1,13 +1,37 @@
 {
-  "name": "bot-ui",
+  "name": "genai-stack-bot-ui",
+  "version": "2.0.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.svelte"
   },
+  "keywords": [
+    "genai",
+    "ai",
+    "bot",
+    "support",
+    "neo4j",
+    "rag",
+    "langchain",
+    "llm",
+    "chat",
+    "svelte"
+  ],
+  "author": "GenAI Stack Team",
+  "license": "MIT",
+  "description": "AI-powered support bot with knowledge graph RAG, voice input/output, and accessibility features",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neo4j-labs/genai-stack"
+  },
+  "bugs": {
+    "url": "https://github.com/neo4j-labs/genai-stack/issues"
+  },
+  "homepage": "https://genai-stack.dev",
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "autoprefixer": "^10.4.16",

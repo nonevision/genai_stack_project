@@ -1,47 +1,177 @@
-# Svelte + Vite
+# GenAI Stack - AI-Powered Support Bot UI
 
-This template should help get you started developing with Svelte in Vite.
+An AI-powered support bot user interface built with Svelte, Vite, and Tailwind CSS. Features include:
 
-## Recommended IDE Setup
+- **Voice Input/Output** - Speak your questions and listen to responses
+- **Knowledge Graph RAG** - Leverages Neo4j knowledge graphs for intelligent answers
+- **Accessibility First** - Full keyboard navigation and ARIA labels
+- **Modern UI** - Clean, responsive interface with smooth animations
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Svelte](https://img.shields.io/badge/-Svelte-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
-## Need an official Svelte framework?
+## ✨ Features
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS and Less and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+### Voice Capabilities
 
-## Technical considerations
+- **Voice Input** - Click the "Voice" button to speak your question (uses Web Speech API)
+- **Text-to-Speech** - Bot responses are automatically read aloud (configurable)
+- **Cross-Browser Support** - Works in Chrome, Edge, Safari, and other modern browsers
 
-**Why use this over SvelteKit?**
+### AI & RAG
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+- **RAG Mode** - Toggle between pure LLM responses and RAG-enabled answers with knowledge graph context
+- **Source Citations** - Answers include citations with links to relevant Stack Overflow questions
+- **Multiple Models** - Support for various LLMs via the API backend
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+### Accessibility
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+- **Keyboard Navigation** - Full keyboard support with visible focus states
+- **Screen Reader Compatible** - Proper ARIA labels and roles throughout
+- **High Contrast** - Accessible color palette with proper contrast ratios
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+## 🚀 Quick Start
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace while also adding `svelte` and `vite/client` type information.
+### Prerequisites
 
-**Why include `.vscode/extensions.json`?**
+- Node.js 18+ or higher
+- npm, yarn, or pnpm
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+### Installation
 
-**Why enable `checkJs` in the JS template?**
+```bash
+# Install dependencies
+npm install
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+# Start development server
+npm run dev
 
-**Why is HMR not preserving my local component state?**
+# Build for production
+npm run build
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have a state that's important to retain within a component, consider creating an external store that would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+# Preview production build
+npm run preview
 ```
+
+The application will be available at `http://localhost:5173`.
+
+## 🛠️ Configuration
+
+The frontend connects to the API backend at `http://localhost:8504`. To change this, update the `API_ENDPOINT` in `src/lib/chat.store.js`.
+
+## 🎮 Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl + K` or `Cmd + K` | Focus the input field |
+| `Ctrl + Enter` or `Cmd + Enter` | Send the message |
+| `Escape` | Close modals |
+
+## 🎤 Voice Features
+
+### Using Voice Input
+
+1. Click the microphone ("Voice") button in the input area
+2. Speak your question clearly
+3. The transcribed text will appear in the input field
+4. Click "Send" or press `Ctrl + Enter`
+
+### Voice Settings
+
+The application automatically selects the first available English voice. To use a different voice:
+
+```javascript
+// In App.svelte, modify the voice selection logic
+selectedVoice = voices.find(v => v.name.includes('Google US English'));
+```
+
+### Browser Support
+
+Voice features work in browsers that support the Web Speech API:
+- ✅ Chrome/Edge (full support)
+- ✅ Safari (full support)
+- ✅ Firefox (requires manual enablement)
+- ⚠️ Mobile browsers (limited support)
+
+## 📁 Project Structure
+
+```
+front-end/
+├── src/
+│   ├── lib/
+│   │   ├── chat.store.js      # Chat state management
+│   │   ├── generation.store.js # Ticket generation store
+│   │   ├── Modal.svelte       # Modal component
+│   │   ├── MdLink.svelte      # Markdown link renderer
+│   │   └── External.svelte    # External link icon
+│   ├── assets/
+│   │   └── images/
+│   │       ├── bot.jpeg       # Bot avatar
+│   │       └── me.jpeg        # User avatar
+│   ├── App.svelte             # Main application component
+│   ├── main.js                # Application entry point
+│   └── app.css                # Global styles + Tailwind directives
+├── public/                    # Static assets
+├── index.html                 # HTML template with SEO meta tags
+├── package.json
+├── svelte.config.js
+├── tailwind.config.js
+└── vite.config.js
+```
+
+## 🎨 Customization
+
+### Changing the Theme
+
+Modify `tailwind.config.js` to change colors, fonts, and other design tokens:
+
+```javascript
+theme: {
+  extend: {
+    colors: {
+      primary: '#6366f1', // Change this
+    },
+  },
+}
+```
+
+### Adding New Features
+
+1. Add components to `src/lib/`
+2. Import and use them in `App.svelte`
+3. Update state management in `.store.js` files as needed
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [contributing guidelines](../CONTRIBUTING.md) first.
+
+### Development Workflow
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📚 Learn More
+
+- [GenAI Stack Documentation](https://genai-stack.dev)
+- [Neo4j Knowledge Graph RAG](https://neo4j.com/developer/graph-data-science/)
+- [Svelte Documentation](https://svelte.dev/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with [Svelte](https://svelte.dev) and [Vite](https://vitejs.dev)
+- Styling with [Tailwind CSS](https://tailwindcss.com)
+- Powered by [Neo4j](https://neo4j.com) knowledge graphs
+- LLM integration via [LangChain](https://langchain.com)
+
+---
+
+**Note**: Voice features use the Web Speech API which is still experimental in some browsers. Features may vary across different browser versions.
